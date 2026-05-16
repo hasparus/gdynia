@@ -4,8 +4,6 @@
 
 Arc-style keyboard shortcuts for Chrome. Built with [Plasmo](https://docs.plasmo.com) + TypeScript.
 
-## Shortcuts (v1)
-
 | Action         | macOS     | Windows/Linux |
 | -------------- | --------- | ------------- |
 | Copy page URL  | ⌘⇧C       | Ctrl+Shift+C  |
