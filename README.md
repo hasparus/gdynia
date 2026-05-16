@@ -1,8 +1,8 @@
-# Gdynia
+<img src="assets/icon.png" width="96" alt="Arka">
+
+# gdynia
 
 Arc-style keyboard shortcuts for Chrome. Built with [Plasmo](https://docs.plasmo.com) + TypeScript.
-
-<img src="assets/icon.png" width="96" alt="Arka">
 
 ## Shortcuts (v1)
 
