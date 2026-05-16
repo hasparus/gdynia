@@ -3,6 +3,7 @@ node_modules
 build
 out
 test-results
+.desloppify
 .env*
 keys.json
 *.log
