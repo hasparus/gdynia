@@ -1,0 +1,43 @@
+{
+  "name": "gdynia",
+  "displayName": "Gdynia",
+  "version": "0.1.0",
+  "description": "Arc-style keyboard shortcuts for Chrome.",
+  "private": true,
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "manifest": {
+    "commands": {
+      "copy-url": {
+        "suggested_key": {
+          "default": "Ctrl+Shift+C",
+          "mac": "Command+Shift+C"
+        },
+        "description": "Copy active page URL"
+      },
+      "duplicate-tab": {
+        "suggested_key": {
+          "default": "Ctrl+Shift+D",
+          "mac": "Command+Shift+D"
+        },
+        "description": "Duplicate active tab"
+      }
+    },
+    "permissions": ["scripting", "activeTab"]
+  },
+  "dependencies": {
+    "plasmo": "0.90.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.1.42",
+    "@types/node": "25.6.2",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "6.0.3"
+  }
+}
