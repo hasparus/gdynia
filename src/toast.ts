@@ -1,56 +1,8 @@
-// Gdynia — Arc-style keyboard shortcuts for Chrome.
-// Service worker: routes registered keyboard commands to tab actions.
+// Injected into the active page by background.ts via chrome.scripting.executeScript.
+// Must be self-contained — the function body runs in the page, with no access to
+// this module's scope. Keep every reference to page globals only.
 
-type Command = "copy-url" | "duplicate-tab"
-
-chrome.commands.onCommand.addListener((command, tab) => {
-  void handleCommand(command as Command, tab)
-})
-
-// Open the onboarding tab once, on first install — it walks the user through
-// assigning the keyboard shortcuts (Chrome won't bind the defaults itself).
-chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason === "install") {
-    void chrome.tabs.create({ url: chrome.runtime.getURL("tabs/welcome.html") })
-  }
-})
-
-async function handleCommand(command: Command, tab?: chrome.tabs.Tab) {
-  const active = tab?.id ? tab : await getActiveTab()
-  if (!active?.id) return
-
-  switch (command) {
-    case "copy-url":
-      await copyUrl(active)
-      break
-    case "duplicate-tab":
-      await chrome.tabs.duplicate(active.id)
-      break
-  }
-}
-
-async function getActiveTab() {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-  return tab
-}
-
-async function copyUrl(tab: chrome.tabs.Tab) {
-  if (!tab.id || !tab.url) return
-  try {
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: copyTextWithToast,
-      args: [tab.url]
-    })
-  } catch (err) {
-    // Restricted pages (chrome://, the Web Store, the New Tab page) can't be
-    // scripted. Nothing to copy into there anyway — fail quietly.
-    console.warn("Gdynia: can't copy from this page", err)
-  }
-}
-
-// Injected into the page. Must be self-contained — no outer-scope references.
-function copyTextWithToast(text: string) {
+export function copyTextWithToast(text: string) {
   const ta = document.createElement("textarea")
   ta.value = text
   ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none"

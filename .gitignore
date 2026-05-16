@@ -2,6 +2,10 @@ node_modules
 .plasmo
 build
 out
+test-results
+.desloppify
+scorecard.png
+tsconfig.tsbuildinfo
 .env*
 keys.json
 *.log

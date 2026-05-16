@@ -2,18 +2,7 @@ import { type CSSProperties } from "react"
 
 import crestUrl from "url:~assets/icon.png"
 
-const shortcuts = [
-  {
-    keys: ["⌘", "⇧", "C"],
-    label: "Copy page URL",
-    desc: "Copies the active tab's URL, with a toast on the page"
-  },
-  {
-    keys: ["⌘", "⇧", "D"],
-    label: "Duplicate tab",
-    desc: "Opens a copy of the active tab"
-  }
-]
+import { SHORTCUTS } from "../shortcuts"
 
 const steps = [
   "Open Chrome's shortcuts page with the button below.",
@@ -26,7 +15,7 @@ function Welcome() {
     chrome.tabs.create({ url: "chrome://extensions/shortcuts" })
   }
 
-  function done() {
+  function closeOnboarding() {
     chrome.tabs.getCurrent((tab) => {
       if (tab?.id) chrome.tabs.remove(tab.id)
     })
@@ -40,7 +29,7 @@ function Welcome() {
         <p style={styles.subtitle}>Arc keyboard shortcuts for Chrome</p>
 
         <section style={styles.shortcuts}>
-          {shortcuts.map((s) => (
+          {SHORTCUTS.map((s) => (
             <div key={s.label} style={styles.shortcutRow}>
               <div>
                 <div style={styles.shortcutLabel}>{s.label}</div>
@@ -78,7 +67,7 @@ function Welcome() {
           <button style={styles.primary} onClick={openShortcuts}>
             Open chrome://extensions/shortcuts
           </button>
-          <button style={styles.ghost} onClick={done}>
+          <button style={styles.ghost} onClick={closeOnboarding}>
             Done
           </button>
         </div>

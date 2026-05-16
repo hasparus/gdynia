@@ -1,14 +1,6 @@
 import { useState, type CSSProperties } from "react"
 
-type Shortcut = {
-  keys: string[]
-  label: string
-}
-
-const shortcuts: Shortcut[] = [
-  { keys: ["⌘", "⇧", "C"], label: "Copy page URL" },
-  { keys: ["⌘", "⇧", "D"], label: "Duplicate tab" }
-]
+import { SHORTCUTS } from "./shortcuts"
 
 function IndexPopup() {
   const [status, setStatus] = useState<string | null>(null)
@@ -25,7 +17,9 @@ function IndexPopup() {
     try {
       await navigator.clipboard.writeText(tab.url)
       flash("Copied URL")
-    } catch {
+    } catch (err) {
+      // Mirror background.ts: keep the diagnostic, show a quiet failure.
+      console.warn("Gdynia: clipboard write failed", err)
       flash("Couldn't copy")
     }
   }
@@ -43,7 +37,7 @@ function IndexPopup() {
       </header>
 
       <div style={styles.list}>
-        {shortcuts.map((s) => (
+        {SHORTCUTS.map((s) => (
           <div key={s.label} style={styles.row}>
             <span>{s.label}</span>
             <span style={styles.keys}>
