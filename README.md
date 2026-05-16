@@ -8,8 +8,6 @@ Arc-style keyboard shortcuts for Chrome. Built with [Plasmo](https://docs.plasmo
 
 ⌘⇧C and ⌘C collide with "Inspect Element" and "Bookmark". You have to bind it at `chrome://extensions/shortcuts`.
 
-https://github.com/hasparus/gdynia
-
 ## Develop
 
 ```bash
