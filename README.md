@@ -32,11 +32,11 @@ bun run package  # → zipped artifact for the Web Store
 
 ## Notes
 
-- On first install, an onboarding tab (`tabs/welcome.tsx`) opens and walks
-  through assigning the shortcuts at `chrome://extensions/shortcuts` — Chrome
+- On first install, an onboarding tab (`tabs/welcome.tsx`) opens and walks you
+  through assigning the shortcuts at `chrome://extensions/shortcuts`. Chrome
   reserves ⌘⇧C and ⌘⇧D, so it won't bind the manifest defaults automatically.
 - Copy URL injects into the active tab, so it works on normal pages but not on
   restricted pages (`chrome://`, the New Tab page, the Web Store). The popup's
   "Copy current URL" button works regardless.
-- `activeTab` permission is granted per keyboard-command invocation — no broad
-  host permissions required.
+- Chrome grants `activeTab` on each keyboard-command invocation, so Gdynia
+  needs no broad host permissions.
