@@ -1,13 +1,13 @@
-// Pads art/arka-gdynia-crest.png onto a transparent square canvas and writes
+// Pads art/arka.png onto a transparent square canvas and writes
 // assets/icon.png — the source Plasmo derives the manifest icon sizes from.
-// The crest is portrait; padding keeps Plasmo from squashing it into a square.
+// Padding keeps Plasmo from squashing non-square art into a square.
 import zlib from "node:zlib"
 import fs from "node:fs"
 
-const SRC = "art/arka-gdynia-crest.png"
+const SRC = "art/arka.png"
 const DST = "assets/icon.png"
 
-// --- decode source PNG (expects 8-bit RGBA, non-interlaced) ---
+// --- decode source PNG (expects 8-bit RGB/RGBA, non-interlaced) ---
 const buf = fs.readFileSync(SRC)
 let ihdr
 const idat = []
@@ -22,11 +22,12 @@ for (let p = 8; p < buf.length; ) {
 }
 const w = ihdr.readUInt32BE(0)
 const h = ihdr.readUInt32BE(4)
-if (ihdr[8] !== 8 || ihdr[9] !== 6) {
-  throw new Error(`expected 8-bit RGBA, got depth=${ihdr[8]} colorType=${ihdr[9]}`)
+const colorType = ihdr[9]
+if (ihdr[8] !== 8 || (colorType !== 2 && colorType !== 6)) {
+  throw new Error(`expected 8-bit RGB/RGBA, got depth=${ihdr[8]} colorType=${colorType}`)
 }
 
-const bpp = 4
+const bpp = colorType === 6 ? 4 : 3
 const stride = w * bpp
 const inflated = zlib.inflateSync(Buffer.concat(idat))
 const pix = Buffer.alloc(h * stride)
@@ -66,8 +67,12 @@ const canvas = Buffer.alloc(S * (1 + S * 4)) // zero-filled: transparent + filte
 for (let y = 0; y < h; y++) {
   const dstRow = (oy + y) * (1 + S * 4) + 1
   for (let x = 0; x < w; x++) {
-    const s = (y * w + x) * 4
-    pix.copy(canvas, dstRow + (ox + x) * 4, s, s + 4)
+    const s = (y * w + x) * bpp
+    const d = dstRow + (ox + x) * 4
+    canvas[d] = pix[s]
+    canvas[d + 1] = pix[s + 1]
+    canvas[d + 2] = pix[s + 2]
+    canvas[d + 3] = bpp === 4 ? pix[s + 3] : 255
   }
 }
 

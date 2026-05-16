@@ -2,6 +2,8 @@
 
 Arc-style keyboard shortcuts for Chrome. Built with [Plasmo](https://docs.plasmo.com) + TypeScript.
 
+<img src="art/arka.png" width="96" alt="Arka">
+
 ## Shortcuts (v1)
 
 | Action         | macOS     | Windows/Linux |
@@ -28,11 +30,12 @@ Load the unpacked extension: `chrome://extensions` → enable Developer mode →
 ```bash
 bun run build    # → build/chrome-mv3-prod
 bun run package  # → zipped artifact for the Web Store
+bun run test:e2e # build + Playwright extension tests
 ```
 
 ## Notes
 
-- On first install, an onboarding tab (`tabs/welcome.tsx`) opens and walks you
+- On first install, an onboarding tab opens and walks you
   through assigning the shortcuts at `chrome://extensions/shortcuts`. Chrome
   reserves ⌘⇧C and ⌘⇧D, so it won't bind the manifest defaults automatically.
 - Copy URL injects into the active tab, so it works on normal pages but not on

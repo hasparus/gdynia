@@ -2,6 +2,7 @@ node_modules
 .plasmo
 build
 out
+test-results
 .env*
 keys.json
 *.log
