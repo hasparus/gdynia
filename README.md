@@ -4,14 +4,11 @@
 
 Arc-style keyboard shortcuts for Chrome. Built with [Plasmo](https://docs.plasmo.com) + TypeScript.
 
-| Action         | macOS     | Windows/Linux |
-| -------------- | --------- | ------------- |
-| Copy page URL  | ⌘⇧C       | Ctrl+Shift+C  |
-| Duplicate tab  | ⌘⇧D       | Ctrl+Shift+D  |
+## Disclaimer
 
-> ⌘⇧C collides with Chrome's DevTools "Inspect Element". If it doesn't fire,
-> rebind it at `chrome://extensions/shortcuts` (or use the popup's
-> "Edit shortcuts" button).
+⌘⇧C and ⌘C collide with "Inspect Element" and "Bookmark". You have to bind it at `chrome://extensions/shortcuts`.
+
+https://github.com/hasparus/gdynia
 
 ## Develop
 
